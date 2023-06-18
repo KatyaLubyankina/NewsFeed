@@ -6,7 +6,12 @@ from db.hashing import Hash
 
 
 def create_user(db: Session, request: UserBase):
-    new_user = DbUser(  # id is generated for us by DB
+    """
+    This function creates a new user in database using requested info.
+    Passoword is hashed before adding to the DB.
+
+    """
+    new_user = DbUser(
         username=request.username,
         email=request.email,
         password=Hash.bcrypt(request.password)
@@ -14,11 +19,16 @@ def create_user(db: Session, request: UserBase):
 
     db.add(new_user)
     db.commit()
-    db.refresh(new_user)  # refresh info about user (add id)
+    db.refresh(new_user)
     return new_user
 
 
 def get_user_by_username(db: Session, username: str):
+    """
+    This function returns a database record with provided username.
+    If user with this username does not exit function returns exception.
+
+    """
     user = db.query(DbUser).filter(DbUser.username == username).first()
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -27,6 +37,11 @@ def get_user_by_username(db: Session, username: str):
 
 
 def update_avatar(db: Session, user_id: int, request: AvatarBase):
+    """
+    Function updates avatar for authorized user.
+    Avatar must be previously uploaded.
+
+    """
     values_dict = {'avatar_url': request.avatar_url,
                    'avatar_url_type': request.avatar_url_type}
     user = db.query(DbUser).filter(DbUser.id == user_id).first()

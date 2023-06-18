@@ -16,7 +16,7 @@ app.include_router(comment.router)
 
 @app.get("/")
 def root():
-    return "Hello world!"
+    return "Welcome to News Feed!"
 
 
 origins = [
