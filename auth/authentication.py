@@ -13,7 +13,7 @@ router = APIRouter(
 
 @router.post('/login',
              summary='Login',
-             description=''
+             description='Validates credentians and returns access_token, token_type, user_id and username'
              )
 def login(request: OAuth2PasswordRequestForm = Depends(),
           db: Session = Depends(get_db)):

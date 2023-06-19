@@ -22,7 +22,7 @@ def create_user(request: UserBase, db: Session = Depends(get_db)):
     return db_user.create_user(db, request)
 
 
-@router.post('/avatar/{id}',
+@router.post('/avatar',
              summary='Upload an avatar',
              response_description='Returns the path to the uploaded avatar'
              )
@@ -50,7 +50,7 @@ def upload_avatar(image: UploadFile = File(...),
     return {'filename': path}
 
 
-@router.post('/avatar',
+@router.post('/avatar/{id}',
              summary='Update user avatar',
              description='This app sumilates updating user avatar')
 def update_avatar(request: AvatarBase,
