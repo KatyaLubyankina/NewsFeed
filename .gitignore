@@ -1,0 +1,12 @@
+# Cache
+__pycache__/
+.pytest_cache/
+
+# Environment
+env/
+
+# Images
+/images
+
+# Database
+news-api.db
