@@ -10,4 +10,4 @@ env/
 /avatars
 
 # Database
-news-api.db
+news_api.db
