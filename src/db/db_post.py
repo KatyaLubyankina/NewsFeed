@@ -1,6 +1,6 @@
-from routers.schemas import PostBase
+from src.routers.schemas import PostBase
 from sqlalchemy.orm.session import Session
-from db.models import DbPost
+from src.db.models import DbPost
 import datetime
 from fastapi import HTTPException, status
 

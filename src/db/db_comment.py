@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from db.models import DbComment
-from routers.schemas import CommentBase
+from src.db.models import DbComment
+from src.routers.schemas import CommentBase
 from datetime import datetime
 
 

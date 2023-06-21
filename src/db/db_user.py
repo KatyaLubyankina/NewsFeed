@@ -1,8 +1,8 @@
 from fastapi import HTTPException, status
-from routers.schemas import UserBase, AvatarBase
+from src.routers.schemas import UserBase, AvatarBase
 from sqlalchemy.orm.session import Session
-from .models import DbUser
-from db.hashing import Hash
+from src.db.models import DbUser
+from src.db.hashing import Hash
 
 
 def create_user(db: Session, request: UserBase):
@@ -39,7 +39,7 @@ def get_user_by_username(db: Session, username: str):
 def update_avatar(db: Session, user_id: int, request: AvatarBase):
     """
     Function updates avatar for authorized user.
-    Avatar must be previously uploaded.
+    Avatar must be previously uploaded via GET /post/image
 
     """
     values_dict = {'avatar_url': request.avatar_url,

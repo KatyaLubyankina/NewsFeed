@@ -1,9 +1,9 @@
 from fastapi import FastAPI
-from db import models
-from db.database import engine
-from routers import user, post, comment
+from src.db import models
+from src.db.database import engine
+from src.routers import user, post, comment
 from fastapi.staticfiles import StaticFiles
-from auth import authentication
+from src.auth import authentication
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -33,5 +33,5 @@ app.add_middleware(
 
 models.Base.metadata.create_all(engine)
 
-app.mount('/images', StaticFiles(directory='images'), name='images')
-app.mount('/avatars', StaticFiles(directory='avatars'), name='avatars')
+app.mount('/src/images', StaticFiles(directory='src/images'), name='images')
+app.mount('/src/avatars', StaticFiles(directory='src/avatars'), name='avatars')

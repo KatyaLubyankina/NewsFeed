@@ -6,8 +6,8 @@
 env/
 
 # Images and avatars
-/images
-/avatars
+src/images/*
+src/avatars/*
 
 # Database
-news_api.db
+src/news_api.db

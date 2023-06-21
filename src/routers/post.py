@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, UploadFile, File, HTTPException, status
 from sqlalchemy.orm import Session
-from routers.schemas import PostDisplay, UserAuth, PostBase
-from db.database import get_db
-from db import db_post
+from src.routers.schemas import PostDisplay, UserAuth, PostBase
+from src.db.database import get_db
+from src.db import db_post
 from typing import List
 import random
 import string
 import shutil
-from auth.oauth2 import get_current_user
+from src.auth.oauth2 import get_current_user
 
 router = APIRouter(
     prefix='/post',
