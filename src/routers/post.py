@@ -56,9 +56,9 @@ def upload_file(image: UploadFile = File(...),
     rand_str = ''.join(random.choice(letters) for i in range(6))
     new = f'_{rand_str}.'
     filename = new.join(image.filename.rsplit('.', 1))
-    path = f'images/{filename}'
+    path = f'src/images/{filename}'
 
-    with open(path, 'w+b') as buffer:
+    with open(path, mode='wb+') as buffer:
         shutil.copyfileobj(image.file, buffer)
 
     return {'filename': path}

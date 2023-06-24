@@ -9,5 +9,6 @@ env/
 src/images/*
 src/avatars/*
 
-# Database
-src/news_api.db
+# Databases
+**/news_api.db
+**/test_api.db
