@@ -34,4 +34,3 @@ app.add_middleware(
 models.Base.metadata.create_all(engine)
 
 app.mount('/src/images', StaticFiles(directory='src/images'), name='images')
-app.mount('/src/avatars', StaticFiles(directory='src/avatars'), name='avatars')
