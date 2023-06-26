@@ -19,9 +19,9 @@ def create_user(request: UserBase, db: Session = Depends(get_db)):
     return db_user.create_user(db, request)
 
 
-@router.post('/avatar/{id}',
-             summary='Update user avatar',
-             description='This app sumilates updating user avatar')
+@router.put('/avatar/{id}',
+            summary='Update user avatar',
+            description='This app sumilates updating user avatar')
 def update_avatar(request: AvatarBase,
                   db: Session = Depends(get_db),
                   current_user: UserAuth = Depends(get_current_user)):
