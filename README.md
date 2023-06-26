@@ -1,5 +1,6 @@
 # NewsFeed with FastApi
 This project is a news feed that allows users to view and create news posts with pictures and comments. It is built using FastAPI.
+![](coverage.svg)
 # Getting started
 ```Python
 docker-compose build
