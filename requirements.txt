@@ -7,3 +7,4 @@ python-multipart
 aiofiles
 python-jose
 pytest
+pytest-cov
