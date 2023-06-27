@@ -17,6 +17,15 @@ router = APIRouter(
             response_description='The list of comments'
             )
 def comments(post_id: int, db: Session = Depends(get_db)):
+    """Retrives all comments for the post
+
+    Args:
+        post_id (int): post id
+        db (Session): database session
+
+    Returns:
+        List of comments 
+    """
     return db_comment.get_all(db, post_id)
 
 

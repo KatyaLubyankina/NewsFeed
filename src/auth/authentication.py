@@ -11,12 +11,25 @@ router = APIRouter(
 )
 
 
-@router.post('/login',
-             summary='Login',
-             description='Validates credentians and returns access_token, token_type, user_id and username'
-             )
+@router.post('/login')
 def login(request: OAuth2PasswordRequestForm = Depends(),
           db: Session = Depends(get_db)):
+    """ Endpoint for login
+
+    Validates credentians and returns
+    access_token, token_type, user_id and username if credentials are valid.
+
+    Args:
+        request (OAuth2PasswordRequestForm): authormatic form request
+        db (Session): database session
+
+    Raises:
+        HTTPException("Invalid credentials"): if no user with this username in database
+        HTTPException("Incorrect password"): if passowrd is wrong
+
+    Returns:
+        Dictionary with access_token, token_type, user_id and username
+    """
     user = db.query(DbUser).filter(DbUser.username == request.username).first()
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
