@@ -15,6 +15,15 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+    """Generates encoded JSON Web Token(JWT) for authentication
+
+    Args:
+        data (dict): dictionary with user info ({"username": username})
+        expires_delta (Optional[timedelta]): optional variable for the expiration of the token
+
+    Returns:
+        Encoded JSON Web Token(JWT)
+    """
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
@@ -27,6 +36,18 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
 
 def get_current_user(token: str = Depends(oauth2_scheme),
                      db: Session = Depends(get_db)):
+    """Decodes token and validates current user
+
+    Args:
+        token (str, optional): encoded JSON Web Token
+        db (Session, optional): database session
+
+    Raises:
+        credentials_exception: if no username in JWT or no user with username from JWT in databasae
+
+    Returns:
+        Information about current user from database
+    """
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
