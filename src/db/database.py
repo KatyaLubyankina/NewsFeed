@@ -13,10 +13,13 @@ Base = declarative_base()
 
 
 def get_db():
-    """_summary_
+    """Generates database session
+
+    Sesion allowes caller to user it for operations with database.
+    After operations session closes.
 
     Yields:
-        _type_: _description_
+    - database session
     """
     db = SessionLocal()
     try:

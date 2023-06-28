@@ -3,17 +3,24 @@ from sqlalchemy.orm.session import Session
 from src.db.models import DbPost
 import datetime
 from fastapi import HTTPException, status
+from typing import List
 
 
-def create(db: Session, request: PostBase):
-    """
+def create_post(db: Session, request: PostBase) -> DbPost:
+    """Creates new post
 
-    Function creates new post record in database.
+    Information about post adds to DbPost table and
+    database generates id and timestamp for each post.
 
+    Args:
+    - db (Session): database session
+    - request (PostBase): image_url, caption and creator_id
+
+    Returns:
+    - DbPost: id, image_url, caption, timestamp, user_id
     """
     new_post = DbPost(
         image_url=request.image_url,
-        image_url_type=request.image_url_type,
         caption=request.caption,
         timestamp=datetime.datetime.now(),
         user_id=request.creator_id
@@ -24,11 +31,35 @@ def create(db: Session, request: PostBase):
     return new_post
 
 
-def get_all(db: Session):
+def get_all_posts(db: Session) -> List[DbPost]:
+    """Gets all posts
+
+    Args:
+    - db (Session): database session
+
+    Returns:
+    - Information about all posts from DbPost table
+    """
     return db.query(DbPost).all()
 
 
-def delete(db: Session, id: int, user_id: int):
+def delete_post(db: Session, id: int, user_id: int) -> str:
+    """Delete post
+
+    Authenticated user can delete post if user created it.
+
+    Args:
+    - db (Session): database session
+    - id (int): post id
+    - user_id (int): user id
+
+    Raises:
+    - HTTPException(404): if no post with with id in database
+    - HTTPException(403): if user did not created this post
+
+    Returns:
+        "ok"
+    """
     post = db.query(DbPost).filter(DbPost.id == id).first()
 
     if not post:
