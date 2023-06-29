@@ -2,7 +2,7 @@
 ![](coverage.svg)
 
 This project allows users to view and create news posts with pictures and comments. 
-See detailed OpenAPI documentation of NewsFeed project [here](https://katyalubyankina.github.io/NewsFeed/) without starting the project.
+See detailed [OpenAPI documentation of NewsFeed project](https://katyalubyankina.github.io/NewsFeed/) without starting the project.
 
 **Features**:
 - [FastAPI](https://fastapi.tiangolo.com/) (Python 3.10) - JWT authentication using [OAuth2](https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/)   
