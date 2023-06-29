@@ -18,7 +18,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     """Generates encoded JSON Web Token(JWT) for authentication
 
-    If expires_delta is provided, token will be avaliable for expires_delta.
+    If expires_delta is provided, token will be available for expires_delta.
     Otherwise expires_delta = 15 minutes.
 
     Args:
@@ -47,7 +47,7 @@ def get_current_user(token: str = Depends(oauth2_scheme),
     - db (Session, optional): database session
 
     Raises:
-    - credentials_exception: if no username in JWT or no user with username from JWT in databasae
+    - credentials_exception: if no username in JWT or no user with username from JWT in database
 
     Returns:
     - DbUser - id, username, email, password, avatar_url and posts

@@ -16,16 +16,16 @@ def login(request: OAuth2PasswordRequestForm = Depends(),
           db: Session = Depends(get_db)) -> dict:
     """ Endpoint for login
 
-    Validates credentians and returns
+    Validates credentials and returns
     access_token, token_type, user_id and username if credentials are valid.
 
     Args:
-    - request (OAuth2PasswordRequestForm): authormatic form request
+    - request (OAuth2PasswordRequestForm): automatic form request
     - db (Session): database session
 
     Raises:
     - HTTPException("Invalid credentials"): if no user with this username in database
-    - HTTPException("Incorrect password"): if passowrd is wrong
+    - HTTPException("Incorrect password"): if password is wrong
 
     Returns:
     - Dictionary with access_token, token_type, user_id and username

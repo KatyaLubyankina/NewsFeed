@@ -34,7 +34,7 @@ def get_user_by_username(db: Session, username: str) -> DbUser:
     """Returns DbUser with provided username
 
     Args:
-    - db (Session): database sesion
+    - db (Session): database session
     - username (str): username
 
     Raises:
