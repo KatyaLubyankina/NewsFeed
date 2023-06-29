@@ -1,15 +1,22 @@
 from fastapi import HTTPException, status
-from src.routers.schemas import UserBase, AvatarBase
+from src.routers.schemas import UserBase
 from sqlalchemy.orm.session import Session
 from src.db.models import DbUser
 from src.db.hashing import Hash
 
 
-def create_user(db: Session, request: UserBase):
-    """
+def create_user(db: Session, request: UserBase) -> DbUser:
+    """Creates new user
+
     This function creates a new user in database using requested info.
     Passoword is hashed before adding to the DB.
 
+    Args:
+    - db (Session): database session
+    - request (UserBase): username, email, password are required, avatar_url is optional
+
+    Returns:
+    DbUser: id, username, email, password, posts
     """
     new_user = DbUser(
         username=request.username,
@@ -23,11 +30,18 @@ def create_user(db: Session, request: UserBase):
     return new_user
 
 
-def get_user_by_username(db: Session, username: str):
-    """
-    This function returns a database record with provided username.
-    If user with this username does not exit function returns exception.
+def get_user_by_username(db: Session, username: str) -> DbUser:
+    """Returns DbUser with provided username
 
+    Args:
+    - db (Session): database session
+    - username (str): username
+
+    Raises:
+    - HTTPException (404): if no user with provided username in database
+
+    Returns:
+    - DbUser: id, username, email, password, posts
     """
     user = db.query(DbUser).filter(DbUser.username == username).first()
     if not user:
@@ -36,14 +50,13 @@ def get_user_by_username(db: Session, username: str):
     return user
 
 
-def update_avatar(db: Session, user_id: int, request: AvatarBase):
+def update_avatar(db: Session, user_id: int, avatar_url: str):
     """
     Function updates avatar for authorized user.
     Avatar must be previously uploaded via GET /post/image
 
     """
-    values_dict = {'avatar_url': request.avatar_url,
-                   'avatar_url_type': request.avatar_url_type}
+    values_dict = {'avatar_url': avatar_url}
     user = db.query(DbUser).filter(DbUser.id == user_id).first()
     for key, value in values_dict.items():
         setattr(user, key, value)

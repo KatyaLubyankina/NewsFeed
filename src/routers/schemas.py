@@ -9,7 +9,6 @@ class UserBase(BaseModel):
     email: str
     password: str
     avatar_url: Optional[str] = None
-    avatar_url_type: Optional[str] = None
 
 
 class UserDisplay(BaseModel):
@@ -22,7 +21,6 @@ class UserDisplay(BaseModel):
 
 class PostBase(BaseModel):
     image_url: str
-    image_url_type: str  # how we get image: store it or get from internet
     caption: str
     creator_id: int
 
@@ -48,7 +46,6 @@ class Comment(BaseModel):
 class PostDisplay(BaseModel):
     id: int
     image_url: str
-    image_url_type: str
     caption: str
     timestamp: datetime
     user: User
@@ -68,8 +65,3 @@ class CommentBase(BaseModel):
     username: str
     text: str
     post_id: int
-
-
-class AvatarBase(BaseModel):
-    avatar_url: str
-    avatar_url_type: str
