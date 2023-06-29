@@ -12,9 +12,9 @@ router = APIRouter(
 
 
 @router.get('/all/{post_id}',
-            summary='Retrive all comments for the post')
+            summary='Retrieve all comments for the post')
 def comments(post_id: int, db: Session = Depends(get_db)):
-    """Retrives all comments for the post
+    """Retrieves all comments for the post
 
     Args:
     - post_id (int): post id
@@ -29,7 +29,7 @@ def comments(post_id: int, db: Session = Depends(get_db)):
 @router.post('', summary='Create a comment')
 def create(request: CommentBase, db: Session = Depends(get_db),
            current_user: UserAuth = Depends(get_current_user)):
-    """Enpoint for new comment creation
+    """Endpoint for new comment creation
 
     Args:
     - request (CommentBase): username, text and post_id

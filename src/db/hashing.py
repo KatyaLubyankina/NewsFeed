@@ -4,10 +4,10 @@ pwd_cxt = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 
 class Hash():
-    """This class provides password hashing and verifing.
+    """This class provides password hashing and verifying.
     """
     def bcrypt(password: str) -> str:
-        """Returns hashed passowrd
+        """Returns hashed password
 
         Args:
         - password (str): plain password

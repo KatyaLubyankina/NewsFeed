@@ -15,7 +15,7 @@ Base = declarative_base()
 def get_db():
     """Generates database session
 
-    Sesion allowes caller to user it for operations with database.
+    Session allows caller to user it for operations with database.
     After operations session closes.
 
     Yields:

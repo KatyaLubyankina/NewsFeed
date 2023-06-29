@@ -57,7 +57,7 @@ def posts(db: Session = Depends(get_db)) -> List[DbPost]:
              )
 def upload_file(image: UploadFile = File(...),
                 current_user: UserAuth = Depends(get_current_user)) -> dict:
-    """Uploades an image
+    """Uploads an image
 
     This app performs uploading file for future posts.
     Authentication is required.
