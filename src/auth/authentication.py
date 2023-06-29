@@ -13,22 +13,22 @@ router = APIRouter(
 
 @router.post('/login')
 def login(request: OAuth2PasswordRequestForm = Depends(),
-          db: Session = Depends(get_db)):
+          db: Session = Depends(get_db)) -> dict:
     """ Endpoint for login
 
     Validates credentians and returns
     access_token, token_type, user_id and username if credentials are valid.
 
     Args:
-        request (OAuth2PasswordRequestForm): authormatic form request
-        db (Session): database session
+    - request (OAuth2PasswordRequestForm): authormatic form request
+    - db (Session): database session
 
     Raises:
-        HTTPException("Invalid credentials"): if no user with this username in database
-        HTTPException("Incorrect password"): if passowrd is wrong
+    - HTTPException("Invalid credentials"): if no user with this username in database
+    - HTTPException("Incorrect password"): if passowrd is wrong
 
     Returns:
-        Dictionary with access_token, token_type, user_id and username
+    - Dictionary with access_token, token_type, user_id and username
     """
     user = db.query(DbUser).filter(DbUser.username == request.username).first()
     if not user:

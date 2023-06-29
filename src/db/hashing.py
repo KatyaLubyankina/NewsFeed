@@ -4,15 +4,27 @@ pwd_cxt = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 
 class Hash():
+    """This class provides password hashing and verifing.
     """
+    def bcrypt(password: str) -> str:
+        """Returns hashed passowrd
 
-    This class provides password hashing and verifing.
-    Password must be hashed before adding to the database.
-    Function verify allows comparisment of plain and hashed passwords.
+        Args:
+        - password (str): plain password
 
-    """
-    def bcrypt(password: str):
+        Returns:
+        - hashed password
+        """
         return pwd_cxt.hash(password)
 
-    def verify(hashed_password, plain_password):
+    def verify(hashed_password: str, plain_password: str) -> bool:
+        """Verifies password
+
+        Args:
+            hashed_password (str)
+            plain_password (str)
+
+        Returns:
+            True if password is correct
+        """
         return pwd_cxt.verify(plain_password, hashed_password)
