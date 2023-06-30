@@ -8,9 +8,9 @@ env/
 # Test coverage
 .coverage
 
-# Images and avatars
-src/images/**
-src/avatars/**
+# Images
+src/images/*
+!src/images/.gitkeep
 
 # Databases
 **/news_api.db
