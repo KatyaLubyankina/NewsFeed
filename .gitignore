@@ -9,8 +9,8 @@ env/
 .coverage
 
 # Images and avatars
-src/images/*
-src/avatars/*
+src/images/**
+src/avatars/**
 
 # Databases
 **/news_api.db
