@@ -9,6 +9,6 @@ python-jose
 pytest
 pytest-cov
 httpx
-pre-commit-hooks
+pre-commit
 black
 isort
