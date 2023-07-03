@@ -11,6 +11,7 @@ See detailed [OpenAPI documentation of NewsFeed project](https://katyalubyankina
 - [Pytest](https://docs.pytest.org/en/latest/) - for tests (Reusable Pytest fixtures and new test database for each test)
 - [Docker Compose](https://docs.docker.com/compose/) - for running application
 - [Uvicorn](https://www.uvicorn.org/) - for ASGI web server
+- CI/CD pipeline: Github action for pytest and docker image build before pull request in master
 
 # Getting started
 Run these commands to start project
