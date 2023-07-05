@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "news-feed-api"
+version = "0.1.0"
+description = "This project allows users to view and create news posts with pictures and comments."
+authors = ["katyalubyankina <katylubyankina@gmail.com>"]
+readme = "README.md"
+packages = [{include = "news_feed_api"}]
+
+[tool.poetry.dependencies]
+python = "3.10.10"
+fastapi = "^0.99.1"
+uvicorn = "^0.22.0"
+sqlalchemy = "^2.0.17"
+passlib = "^1.7.4"
+bcrypt = "^4.0.1"
+python-multipart = "^0.0.6"
+aiofiles = "^23.1.0"
+python-jose = "^3.3.0"
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+httpx = "^0.24.1"
+pre-commit = "^3.3.3"
+black = "^23.3.0"
+isort = "^5.12.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
