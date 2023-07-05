@@ -18,11 +18,7 @@ def test_upload_image_success(login_user):
     if os.path.isfile(file_path):
         file = {"image": open(file_path, "rb")}
         response = client.post(
-            "/post/image",
-            files=file,
-            headers={
-                "Authorization": "bearer " + access_token
-            }
+            "/post/image", files=file, headers={"Authorization": "bearer " + access_token}
         )
         assert response.status_code == 200
         assert response.json().get("filename")
@@ -31,7 +27,7 @@ def test_upload_image_success(login_user):
 
 
 def test_get_all_posts(test_db):
-    response = client.get('/post/all')
+    response = client.get("/post/all")
     assert response.status_code == 200
 
 
@@ -44,12 +40,7 @@ def test_create_post(create_post):
 def test_delete_post_success(create_post):
     id = 1
     access_token = create_post[1]
-    response = client.get(
-        f"/post/delete/{id}",
-        headers={
-            "Authorization": "bearer " + access_token
-        }
-    )
+    response = client.get(f"/post/delete/{id}", headers={"Authorization": "bearer " + access_token})
     assert response.status_code == 200
     assert response.json() == "ok"
 
@@ -57,22 +48,12 @@ def test_delete_post_success(create_post):
 def test_delete_post_token_error(create_post):
     id = 1
     access_token = ""
-    response = client.get(
-        f"/post/delete/{id}",
-        headers={
-            "Authorization": "bearer " + access_token
-        }
-    )
+    response = client.get(f"/post/delete/{id}", headers={"Authorization": "bearer " + access_token})
     assert response.status_code == 401
 
 
 def test_delete_post_id_error(create_post):
     id = 2
     access_token = create_post[1]
-    response = client.get(
-        f"/post/delete/{id}",
-        headers={
-            "Authorization": "bearer " + access_token
-        }
-    )
+    response = client.get(f"/post/delete/{id}", headers={"Authorization": "bearer " + access_token})
     assert response.status_code == 404
