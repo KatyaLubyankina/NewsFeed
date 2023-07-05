@@ -15,3 +15,5 @@ src/images/*
 # Databases
 **/news_api.db
 **/test_api.db
+
+requirements.txt
