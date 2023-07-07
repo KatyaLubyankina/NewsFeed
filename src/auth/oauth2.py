@@ -1,17 +1,21 @@
-from fastapi.security import OAuth2PasswordBearer
-from typing import Optional
 from datetime import datetime, timedelta
-from jose import jwt, JWTError
-from fastapi import HTTPException, Depends, status
+from typing import Optional
+
+from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
+from jose import JWTError, jwt
 from sqlalchemy.orm import Session
-from src.db.database import get_db
+
+import config
 from src.db import db_user
+from src.db.database import get_db
 from src.db.models import DbUser
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
-SECRET_KEY = '2f98e7bb35876335c26954be812d58f95448c347ea7734515173baefa0f2ab51'
-ALGORITHM = 'HS256'
+SECRET_KEY = config.get_settings().SECRET_KEY.get_secret_value()
+# SECRET_KEY = '2f98e7bb35876335c26954be812d58f95448c347ea7734515173baefa0f2ab51'
+ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
@@ -38,8 +42,9 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     return encoded_jwt
 
 
-def get_current_user(token: str = Depends(oauth2_scheme),
-                     db: Session = Depends(get_db)) -> DbUser:
+def get_current_user(
+    token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)
+) -> DbUser:
     """Decodes token and validates current user
 
     Args:
@@ -47,7 +52,8 @@ def get_current_user(token: str = Depends(oauth2_scheme),
     - db (Session, optional): database session
 
     Raises:
-    - credentials_exception: if no username in JWT or no user with username from JWT in database
+    - credentials_exception: if no username in JWT or no user
+    with username from JWT in database
 
     Returns:
     - DbUser - id, username, email, password, avatar_url and posts
