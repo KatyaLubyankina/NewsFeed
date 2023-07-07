@@ -1,18 +1,19 @@
 # NewsFeed with FastApi
 ![](coverage.svg)
 
-This project allows users to view and create news posts with pictures and comments. 
+This project allows users to view and create news posts with pictures and comments.
 See detailed [OpenAPI documentation of NewsFeed project](https://katyalubyankina.github.io/NewsFeed/) without starting the project.
 
 **Features**:
-- [FastAPI](https://fastapi.tiangolo.com/) (Python 3.10) - JWT authentication using [OAuth2](https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/)   
+- [FastAPI](https://fastapi.tiangolo.com/) (Python 3.10) - JWT authentication using [OAuth2](https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/)
 - [SQLite](https://www.sqlite.org/index.html) - for the database
 - [SqlAlchemy](https://www.sqlalchemy.org/) - for ORM
 - [Pytest](https://docs.pytest.org/en/latest/) - for tests (Reusable Pytest fixtures and new test database for each test)
 - [Docker Compose](https://docs.docker.com/compose/) - for running application
 - [Uvicorn](https://www.uvicorn.org/) - for ASGI web server
 - CI/CD pipeline: Github action for pytest and docker image build before pull request in master
-
+- [Poetry](https://python-poetry.org/) - for packaging and dependency management
+- [Python-dotenv](https://github.com/theskumar/python-dotenv) - for reading configuration variables and secret data
 # Getting started
 Run these commands to start project
 ```Python
@@ -51,7 +52,7 @@ curl -X 'POST' \
 }'
 ```
 Response:
-``` 
+```
 {
   "username": "test",
   "email": "test@gmail.com"
@@ -72,7 +73,7 @@ curl -X 'POST' \
 }'
 ```
 Response:
-``` 
+```
 {
   "id": 1,
   "image_url": "test url",
@@ -100,7 +101,7 @@ curl -X 'POST' \
 }'
 ```
 Response:
-``` 
+```
 {
   "text": "test comment",
   "username": "test",
@@ -117,7 +118,7 @@ curl -X 'GET' \
   -H 'accept: application/json'
 ```
 Response:
-``` 
+```
 [
   {
     "id": 1,
@@ -145,7 +146,7 @@ curl -X 'GET' \
   -H 'accept: application/json'
 ```
 Response:
-``` 
+```
 [
   {
     "text": "test comment",
@@ -166,6 +167,6 @@ curl -X 'GET' \
   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJleHAiOjE2ODgwMjY2NDF9.0BlUSHzdzR4lOdghXxuwxijc1E1aZQYJ_lOOUFWbNwY'
 ```
 Response:
-``` 
+```
 "ok"
 ```

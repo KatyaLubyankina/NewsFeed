@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "news-feed-api"
 version = "0.1.0"
-description = "This project allows users to view and create news posts with pictures and comments."
+description = ""
 authors = ["katyalubyankina <katylubyankina@gmail.com>"]
 readme = "README.md"
 packages = [{include = "news_feed_api"}]
@@ -10,7 +10,7 @@ packages = [{include = "news_feed_api"}]
 python = "3.10.10"
 fastapi = "^0.99.1"
 uvicorn = "^0.22.0"
-sqlalchemy = "^2.0.17"
+sqlalchemy = "^2.0.18"
 passlib = "^1.7.4"
 bcrypt = "^4.0.1"
 python-multipart = "^0.0.6"
@@ -22,7 +22,8 @@ httpx = "^0.24.1"
 pre-commit = "^3.3.3"
 black = "^23.3.0"
 isort = "^5.12.0"
-flake8 = "^6.0.0"
+python-dotenv = "^1.0.0"
+pyproject-flake8 = "^6.0.0.post1"
 
 
 [build-system]

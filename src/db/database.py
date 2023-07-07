@@ -1,11 +1,14 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker
 
-SQLALCHEMY_DATABASE_URL = 'sqlite:///./news_api.db'
+import config
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL,
-                       connect_args={"check_same_thread": False})
+SQLALCHEMY_DATABASE_URL = config.get_settings().SQLALCHEMY_DATABASE_URL
+# SQLALCHEMY_DATABASE_URL: str = 'sqlite:///./news_api.db'
+
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+)
 
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 
