@@ -1,9 +1,10 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+
+from src.auth import authentication
 from src.db import models
 from src.db.database import engine
-from src.routers import user, post, comment
-from fastapi.staticfiles import StaticFiles
-from src.auth import authentication
+from src.routers import comment, post, user
 
 app = FastAPI()
 
@@ -20,4 +21,4 @@ def root():
 
 models.Base.metadata.create_all(engine)
 
-app.mount('/src/images', StaticFiles(directory='src/images'), name='images')
+app.mount("/src/images", StaticFiles(directory="src/images"), name="images")

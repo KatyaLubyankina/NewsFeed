@@ -1,9 +1,11 @@
-from src.routers.schemas import PostBase
-from sqlalchemy.orm.session import Session
-from src.db.models import DbPost
 import datetime
-from fastapi import HTTPException, status
 from typing import List
+
+from fastapi import HTTPException, status
+from sqlalchemy.orm.session import Session
+
+from src.db.models import DbPost
+from src.routers.schemas import PostBase
 
 
 def create_post(db: Session, request: PostBase) -> DbPost:
@@ -23,7 +25,7 @@ def create_post(db: Session, request: PostBase) -> DbPost:
         image_url=request.image_url,
         caption=request.caption,
         timestamp=datetime.datetime.now(),
-        user_id=request.creator_id
+        user_id=request.creator_id,
     )
     db.add(new_post)
     db.commit()
@@ -63,13 +65,16 @@ def delete_post(db: Session, id: int, user_id: int) -> str:
     post = db.query(DbPost).filter(DbPost.id == id).first()
 
     if not post:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'Post with id {id} not found')
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {id} not found"
+        )
 
     if post.user_id != user_id:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
-                            detail='Only post creator can delete post')
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only post creator can delete post",
+        )
 
     db.delete(post)
     db.commit()
-    return 'ok'
+    return "ok"

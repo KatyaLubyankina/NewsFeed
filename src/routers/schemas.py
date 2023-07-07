@@ -1,7 +1,7 @@
-from pydantic import BaseModel
 from datetime import datetime
-from typing import List
-from typing import Optional
+from typing import List, Optional
+
+from pydantic import BaseModel
 
 
 class UserBase(BaseModel):
@@ -15,7 +15,7 @@ class UserDisplay(BaseModel):
     username: str
     email: str
 
-    class Config():
+    class Config:
         orm_mode = True
 
 
@@ -29,7 +29,7 @@ class PostBase(BaseModel):
 class User(BaseModel):
     username: str
 
-    class Config():
+    class Config:
         orm_mode = True
 
 
@@ -39,7 +39,7 @@ class Comment(BaseModel):
     username: str
     timestamp: datetime
 
-    class Config():
+    class Config:
         orm_mode = True
 
 
@@ -51,7 +51,7 @@ class PostDisplay(BaseModel):
     user: User
     comments: List[Comment]
 
-    class Config():
+    class Config:
         orm_mode = True
 
 

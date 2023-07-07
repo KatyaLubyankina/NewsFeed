@@ -1,8 +1,10 @@
-from sqlalchemy.orm import Session
-from src.db.models import DbComment
-from src.routers.schemas import CommentBase
 from datetime import datetime
 from typing import List
+
+from sqlalchemy.orm import Session
+
+from src.db.models import DbComment
+from src.routers.schemas import CommentBase
 
 
 def create_comment(db: Session, request: CommentBase) -> DbComment:
@@ -19,7 +21,7 @@ def create_comment(db: Session, request: CommentBase) -> DbComment:
         text=request.text,
         username=request.username,
         post_id=request.post_id,
-        timestamp=datetime.now()
+        timestamp=datetime.now(),
     )
 
     db.add(new_comment)
