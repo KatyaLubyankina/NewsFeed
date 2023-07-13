@@ -1,11 +1,12 @@
 import random
-import shutil
 import string
-from typing import List
+from typing import Annotated, List
 
 from fastapi import APIRouter, Depends, File, UploadFile
 from sqlalchemy.orm import Session
 
+from config import Settings, get_settings
+from minio import Minio
 from src.auth.oauth2 import get_current_user
 from src.db import db_post
 from src.db.database import get_db
@@ -47,15 +48,15 @@ def posts(db: Session = Depends(get_db)) -> List[DbPost]:
     return db_post.get_all_posts(db)
 
 
-@router.post(
-    "/image", summary="Upload an image", response_description="Path to uploaded file"
-)
+@router.post("/image", summary="Upload an image")
 def upload_file(
-    image: UploadFile = File(...), current_user: UserAuth = Depends(get_current_user)
+    settings: Annotated[Settings, Depends(get_settings)],
+    image: UploadFile = File(...),
+    current_user: UserAuth = Depends(get_current_user),
 ) -> dict:
     """Uploads an image
 
-    This app performs uploading file for future posts.
+    This app performs uploading file for future posts in minIO S3 storage.
     Authentication is required.
     Random string of 6 characters is added to filename to prevent overwriting.
 
@@ -64,18 +65,25 @@ def upload_file(
     - current_user: result of user validation by get_current_user function
 
     Returns:
-    - {"filename": path} with path to uploaded file
+    - {"Bucket name": "images", "filename": filename} with modified filename
     """
     letters = string.ascii_letters
     rand_str = "".join(random.choice(letters) for i in range(6))
     new = f"_{rand_str}."
     filename = new.join(image.filename.rsplit(".", 1))
-    path = f"src/images/{filename}"
-
-    with open(path, mode="wb+") as buffer:
-        shutil.copyfileobj(image.file, buffer)
-
-    return {"filename": path}
+    minio_client = Minio(
+        endpoint=f"{settings.MINIO_HOST_NAME}:9000",
+        access_key=settings.ACCESS_KEY_S3,
+        secret_key=settings.SECRET_KEY_S3.get_secret_value(),
+        secure=False,
+    )
+    found = minio_client.bucket_exists("images")
+    if not found:
+        minio_client.make_bucket("images")
+    minio_client.put_object(
+        "images", filename, image.file, length=-1, part_size=10 * 1024 * 1024
+    )
+    return {"Bucket name": "images", "filename": filename}
 
 
 @router.get(
