@@ -8,12 +8,10 @@ env/
 # Test coverage
 .coverage
 
-# Images
-src/images/*
-!src/images/.gitkeep
+# Minio
+minio/
+
 
 # Databases
 **/news_api.db
 **/test_api.db
-
-requirements.txt
