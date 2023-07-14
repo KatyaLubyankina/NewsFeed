@@ -5,6 +5,8 @@ services:
   build: .
   ports:
     - "80:80"
+  volumes:
+    - ./sqlite:/sqlite
   depends_on:
     - minio
 
