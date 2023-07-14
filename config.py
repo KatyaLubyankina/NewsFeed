@@ -4,7 +4,7 @@ from pydantic import BaseSettings, SecretStr
 
 
 class Settings(BaseSettings):
-    SQLALCHEMY_DATABASE_URL: str = "sqlite:///./news_api.db"
+    SQLALCHEMY_DATABASE_URL: str = "sqlite:///sqlite/news_api.db"
     SECRET_KEY: SecretStr
     MINIO_HOST_NAME: str = "minio"
     ACCESS_KEY_S3: str = "minioadmin"

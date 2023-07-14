@@ -4,23 +4,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
-from config import Settings, get_settings
 from src.db.database import Base, get_db
 from src.main import app
 
-
-def get_settings_override():
-    return Settings(
-        SQLALCHEMY_DATABASE_URL="sqlite:///./test_api.db",
-        MINIO_HOST_NAME="play.minio.io",
-        ACCESS_KEY_S3="Q3AM3UQ867SPQQA43P2F",
-        SECRET_KEY_S3="zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG",
-    )
-
-
-app.dependency_overrides[get_settings] = get_settings_override
-
-SQLALCHEMY_DATABASE_URL = get_settings().SQLALCHEMY_DATABASE_URL
+SQLALCHEMY_DATABASE_URL = "sqlite:///sqlite/test_api.db"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
