@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 from src.auth import authentication
 from src.db import models
@@ -19,6 +19,14 @@ def root():
     return "Welcome to News Feed!"
 
 
-models.Base.metadata.create_all(engine)
+origins = ["http://localhost:9000"]
 
-app.mount("/src/images", StaticFiles(directory="src/images"), name="images")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+models.Base.metadata.create_all(engine)

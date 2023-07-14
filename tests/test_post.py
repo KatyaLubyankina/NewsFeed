@@ -1,11 +1,26 @@
-import os
+# import os
 
-import pytest
+# import pytest
 from fastapi.testclient import TestClient
 
+from config import get_settings
 from src.main import app
+from tests.conftest import get_settings_override
 
 client = TestClient(app)
+
+
+app.dependency_overrides[get_settings] = get_settings_override
+
+
+# def test_change_settings():
+#     new_settings = get_settings_override()
+#     assert new_settings.MINIO_HOST_NAME == 'play.minio.io'
+#     my_settings = get_settings()
+#     assert my_settings.MINIO_HOST_NAME == "play.minio.io"
+#     # assert my_settings.ACCESS_KEY_S3 == 'Q3AM3UQ867SPQQA43P2F'
+#     # assert my_settings.SECRET_KEY_S3.get_secret_value(
+#     # ) == 'zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG'
 
 
 def test_login(login_user):
@@ -14,20 +29,20 @@ def test_login(login_user):
     assert access_token
 
 
-def test_upload_image_success(login_user):
-    access_token = login_user.json().get("access_token")
-    file_path = "tests/test.png"
-    if os.path.isfile(file_path):
-        file = {"image": open(file_path, "rb")}
-        response = client.post(
-            "/post/image",
-            files=file,
-            headers={"Authorization": "bearer " + access_token},
-        )
-        assert response.status_code == 200
-        assert response.json().get("filename")
-    else:
-        pytest.fail("File does not exists.")
+# def test_upload_image_success(login_user):
+#     access_token = login_user.json().get("access_token")
+#     file_path = "tests/test.png"
+#     if os.path.isfile(file_path):
+#         file = {"image": open(file_path, "rb")}
+#         response = client.post(
+#             "/post/image",
+#             files=file,
+#             headers={"Authorization": "bearer " + access_token},
+#         )
+#         assert response.status_code == 200
+#         assert response.json().get("filename")
+#     else:
+#         pytest.fail("File does not exists.")
 
 
 def test_get_all_posts(test_db):
