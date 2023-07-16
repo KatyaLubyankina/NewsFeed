@@ -4,12 +4,14 @@ from sqlalchemy.orm import Session
 from src.auth.oauth2 import get_current_user
 from src.db import db_comment
 from src.db.database import get_db
+from src.logging import logger_wraps
 from src.routers.schemas import CommentBase, UserAuth
 
 router = APIRouter(prefix="/comment", tags=["comment"])
 
 
 @router.get("/all/{post_id}", summary="Retrieve all comments for the post")
+@logger_wraps()
 def comments(post_id: int, db: Session = Depends(get_db)):
     """Retrieves all comments for the post
 
@@ -24,6 +26,7 @@ def comments(post_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("", summary="Create a comment")
+@logger_wraps()
 def create(
     request: CommentBase,
     db: Session = Depends(get_db),

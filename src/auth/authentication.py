@@ -6,11 +6,13 @@ from src.auth.oauth2 import create_access_token
 from src.db.database import get_db
 from src.db.hashing import Hash
 from src.db.models import DbUser
+from src.logging import logger_wraps
 
 router = APIRouter(tags=["authentication"])
 
 
 @router.post("/login")
+@logger_wraps()
 def login(
     request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ) -> dict:

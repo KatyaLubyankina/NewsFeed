@@ -13,7 +13,9 @@ See detailed [OpenAPI documentation of NewsFeed project](https://katyalubyankina
 - [Uvicorn](https://www.uvicorn.org/) - for ASGI web server
 - CI/CD pipeline: Github action for pytest and docker image build before pull request in master
 - [Poetry](https://python-poetry.org/) - for packaging and dependency management
-- [Python-dotenv](https://github.com/theskumar/python-dotenv) - for reading configuration variables and secret data
+- [Python-dotenv](https://github.com/theskumar/python-dotenv) - for reading configuration variables
+- [Loguru](https://loguru.readthedocs.io/en/stable/api/logger.html) - for logging errors
+and secret data
 # Getting started
 Run these commands to start project
 ```Python
