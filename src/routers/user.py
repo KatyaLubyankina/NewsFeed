@@ -1,16 +1,19 @@
 from fastapi import APIRouter, Depends
+from loguru import logger
 from sqlalchemy.orm.session import Session
 
 from src.auth.oauth2 import get_current_user
 from src.db import db_user
 from src.db.database import get_db
 from src.db.models import DbUser
+from src.logging import logger_wraps
 from src.routers.schemas import UserAuth, UserBase, UserDisplay
 
 router = APIRouter(prefix="/user", tags=["user"])
 
 
 @router.post("", response_model=UserDisplay, summary="Create a user")
+@logger.catch()
 def create_user(request: UserBase, db: Session = Depends(get_db)) -> DbUser:
     """Creates new user
 
@@ -27,6 +30,7 @@ def create_user(request: UserBase, db: Session = Depends(get_db)) -> DbUser:
 
 
 @router.post("/avatar/{id}", summary="Update user avatar")
+@logger_wraps()
 def update_avatar(
     avatar_url: str,
     db: Session = Depends(get_db),

@@ -11,12 +11,14 @@ from src.auth.oauth2 import get_current_user
 from src.db import db_post
 from src.db.database import get_db
 from src.db.models import DbPost
+from src.logging import logger_wraps
 from src.routers.schemas import PostBase, PostDisplay, UserAuth
 
 router = APIRouter(prefix="/post", tags=["post"])
 
 
 @router.post("", response_model=PostDisplay)
+@logger_wraps()
 def create_post(request: PostBase, db: Session = Depends(get_db)) -> DbPost:
     """Creates new post
 
@@ -34,6 +36,7 @@ def create_post(request: PostBase, db: Session = Depends(get_db)) -> DbPost:
 
 
 @router.get("/all", response_model=List[PostDisplay], summary="Retrive all posts")
+@logger_wraps()
 def posts(db: Session = Depends(get_db)) -> List[DbPost]:
     """Retrives all posts
 
@@ -49,6 +52,7 @@ def posts(db: Session = Depends(get_db)) -> List[DbPost]:
 
 
 @router.post("/image", summary="Upload an image")
+@logger_wraps()
 def upload_file(
     settings: Annotated[Settings, Depends(get_settings)],
     image: UploadFile = File(...),
@@ -89,6 +93,7 @@ def upload_file(
 @router.get(
     "/delete/{id}", summary="Delete post", response_description='"ok" or HTTP exception'
 )
+@logger_wraps()
 def delete(
     id: int,
     db: Session = Depends(get_db),

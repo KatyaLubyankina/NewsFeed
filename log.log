@@ -1,0 +1,182 @@
+15:42:20 | DEBUG | Entering 'create_user' (kwargs={'db': <sqlalchemy.orm.session.Session object at 0x000002B2274AED40>, 'request': UserBase(username='loguru', email='loguru', password='loguru', avatar_url='string')})
+15:42:20 | DEBUG | Exiting 'create_user' (result=<src.db.models.DbUser object at 0x000002B22752ED70>)
+15:42:36 | DEBUG | Entering 'create_user' (kwargs={'db': <sqlalchemy.orm.session.Session object at 0x000002B2274ADF00>, 'request': UserBase(username='loguru', email='loguru', password='loguru', avatar_url='string')})
+15:49:06 | ERROR | An error has been caught in function 'run', process 'SpawnProcess-10' (6092), thread 'AnyIO worker thread' (10808):
+Traceback (most recent call last):
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\engine\base.py", line 1931, in _exec_single_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x000001A0475A91B0>
+    │    └ <sqlalchemy.dialects.sqlite.pysqlite.SQLiteDialect_pysqlite object at 0x000001A047B7AAD0>
+    └ <sqlalchemy.engine.base.Connection object at 0x000001A047F8BAF0>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\engine\default.py", line 888, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ('loguru', 'loguru', '$2b$12$EGLLPLWoG5daXsHBsmJeduGWa1IRyrI2FDRUjALhN4FckVRsMVwf.', None)
+    │      │       └ 'INSERT INTO user (username, email, password, avatar_url) VALUES (?, ?, ?, ?)'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x000001A047E4B440>
+
+sqlite3.IntegrityError: UNIQUE constraint failed: user.email
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\Михаил\AppData\Local\Programs\Python\Python310\lib\threading.py", line 973, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x000001A043ABD1B0>
+    └ <WorkerThread(AnyIO worker thread, started 10808)>
+
+  File "C:\Users\Михаил\AppData\Local\Programs\Python\Python310\lib\threading.py", line 1016, in _bootstrap_inner
+    self.run()
+    │    └ <function WorkerThread.run at 0x000001A047F36EF0>
+    └ <WorkerThread(AnyIO worker thread, started 10808)>
+
+> File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\anyio\_backends\_asyncio.py", line 783, in run
+    result = context.run(func, *args)
+             │       │   │      └ ()
+             │       │   └ functools.partial(<function create_user at 0x000001A047EE2E60>, db=<sqlalchemy.orm.session.Session object at 0x000001A047F2E8...
+             │       └ <method 'run' of '_contextvars.Context' objects>
+             └ <_contextvars.Context object at 0x000001A047F86100>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\src\routers\user.py", line 29, in create_user
+    return db_user.create_user(db, request)
+           │       │           │   └ UserBase(username='loguru', email='loguru', password='loguru', avatar_url='string')
+           │       │           └ <sqlalchemy.orm.session.Session object at 0x000001A047F2E860>
+           │       └ <function create_user at 0x000001A047A8B010>
+           └ <module 'src.db.db_user' from 'C:\\Users\\Михаил\\Desktop\\FastAPI\\news-feed-api\\src\\db\\db_user.py'>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\src\db\db_user.py", line 29, in create_user
+    db.commit()
+    │  └ <function Session.commit at 0x000001A047841D80>
+    └ <sqlalchemy.orm.session.Session object at 0x000001A047F2E860>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\orm\session.py", line 1859, in commit
+    trans.commit(_to_root=True)
+    │     └ <function SessionTransaction.commit at 0x000001A047841000>
+    └ <sqlalchemy.orm.session.SessionTransaction object at 0x000001A047BFEE40>
+
+  File "<string>", line 2, in commit
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\orm\state_changes.py", line 132, in _go
+    ret_value = fn(self, *arg, **kw)
+                │  │      │      └ {'_to_root': True}
+                │  │      └ ()
+                │  └ <sqlalchemy.orm.session.SessionTransaction object at 0x000001A047BFEE40>
+                └ <function SessionTransaction.commit at 0x000001A047840F70>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\orm\session.py", line 1175, in commit
+    self._prepare_impl()
+    │    └ <function SessionTransaction._prepare_impl at 0x000001A047840EE0>
+    └ <sqlalchemy.orm.session.SessionTransaction object at 0x000001A047BFEE40>
+
+  File "<string>", line 2, in _prepare_impl
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\orm\state_changes.py", line 132, in _go
+    ret_value = fn(self, *arg, **kw)
+                │  │      │      └ {}
+                │  │      └ ()
+                │  └ <sqlalchemy.orm.session.SessionTransaction object at 0x000001A047BFEE40>
+                └ <function SessionTransaction._prepare_impl at 0x000001A047840DC0>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\orm\session.py", line 1150, in _prepare_impl
+    self.session.flush()
+    │    │       └ <function Session.flush at 0x000001A0478439A0>
+    │    └ <sqlalchemy.orm.session.Session object at 0x000001A047F2E860>
+    └ <sqlalchemy.orm.session.SessionTransaction object at 0x000001A047BFEE40>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\orm\session.py", line 4102, in flush
+    self._flush(objects)
+    │    │      └ None
+    │    └ <function Session._flush at 0x000001A047843B50>
+    └ <sqlalchemy.orm.session.Session object at 0x000001A047F2E860>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\orm\session.py", line 4237, in _flush
+    with util.safe_reraise():
+         │    └ <class 'sqlalchemy.util.langhelpers.safe_reraise'>
+         └ <module 'sqlalchemy.util' from 'C:\\Users\\Михаил\\Desktop\\FastAPI\\news-feed-api\\env\\lib\\site-packages\\sqlalchemy\\util...
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\util\langhelpers.py", line 130, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+          │         │              └ <traceback object at 0x000001A047FDB5C0>
+          │         └ <method 'with_traceback' of 'BaseException' objects>
+          └ IntegrityError('(sqlite3.IntegrityError) UNIQUE constraint failed: user.email')
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\orm\session.py", line 4198, in _flush
+    flush_context.execute()
+    │             └ <function UOWTransaction.execute at 0x000001A047825EA0>
+    └ <sqlalchemy.orm.unitofwork.UOWTransaction object at 0x000001A047F88D30>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 459, in execute
+    rec.execute(self)
+    │   │       └ <sqlalchemy.orm.unitofwork.UOWTransaction object at 0x000001A047F88D30>
+    │   └ <function SaveUpdateAll.execute at 0x000001A0478267A0>
+    └ SaveUpdateAll(Mapper[DbUser(user)])
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 635, in execute
+    util.preloaded.orm_persistence.save_obj(
+    │    │         │               └ <function save_obj at 0x000001A047800DC0>
+    │    │         └ <module 'sqlalchemy.orm.persistence' from 'C:\\Users\\Михаил\\Desktop\\FastAPI\\news-feed-api\\env\\lib\\site-packages\\sqlal...
+    │    └ <module 'sqlalchemy.util.preloaded' from 'C:\\Users\\Михаил\\Desktop\\FastAPI\\news-feed-api\\env\\lib\\site-packages\\sqlalc...
+    └ <module 'sqlalchemy.util' from 'C:\\Users\\Михаил\\Desktop\\FastAPI\\news-feed-api\\env\\lib\\site-packages\\sqlalchemy\\util...
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\orm\persistence.py", line 88, in save_obj
+    _emit_insert_statements(
+    └ <function _emit_insert_statements at 0x000001A0478017E0>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\orm\persistence.py", line 1221, in _emit_insert_statements
+    result = connection.execute(
+             │          └ <function Connection.execute at 0x000001A046CFDFC0>
+             └ <sqlalchemy.engine.base.Connection object at 0x000001A047F8BAF0>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\engine\base.py", line 1378, in execute
+    return meth(
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.dml.Insert object at 0x000001A047F8BD00>>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\sql\elements.py", line 433, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x000001A046CFE290>
+           └ <sqlalchemy.engine.base.Connection object at 0x000001A047F8BAF0>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\engine\base.py", line 1601, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x000001A046CFE440>
+          └ <sqlalchemy.engine.base.Connection object at 0x000001A047F8BAF0>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\engine\base.py", line 1810, in _execute_context
+    return self._exec_single_context(
+           │    └ <function Connection._exec_single_context at 0x000001A046CFE4D0>
+           └ <sqlalchemy.engine.base.Connection object at 0x000001A047F8BAF0>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\engine\base.py", line 1950, in _exec_single_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x000001A046CFE710>
+    └ <sqlalchemy.engine.base.Connection object at 0x000001A047F8BAF0>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\engine\base.py", line 2305, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+          │                    │              │                 └ IntegrityError('UNIQUE constraint failed: user.email')
+          │                    │              └ (<class 'sqlite3.IntegrityError'>, IntegrityError('UNIQUE constraint failed: user.email'), <traceback object at 0x000001A047F...
+          │                    └ <method 'with_traceback' of 'BaseException' objects>
+          └ IntegrityError('(sqlite3.IntegrityError) UNIQUE constraint failed: user.email')
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\engine\base.py", line 1931, in _exec_single_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x000001A0475A91B0>
+    │    └ <sqlalchemy.dialects.sqlite.pysqlite.SQLiteDialect_pysqlite object at 0x000001A047B7AAD0>
+    └ <sqlalchemy.engine.base.Connection object at 0x000001A047F8BAF0>
+
+  File "C:\Users\Михаил\Desktop\FastAPI\news-feed-api\env\lib\site-packages\sqlalchemy\engine\default.py", line 888, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ('loguru', 'loguru', '$2b$12$EGLLPLWoG5daXsHBsmJeduGWa1IRyrI2FDRUjALhN4FckVRsMVwf.', None)
+    │      │       └ 'INSERT INTO user (username, email, password, avatar_url) VALUES (?, ?, ?, ?)'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x000001A047E4B440>
+
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: user.email
+[SQL: INSERT INTO user (username, email, password, avatar_url) VALUES (?, ?, ?, ?)]
+[parameters: ('loguru', 'loguru', '$2b$12$EGLLPLWoG5daXsHBsmJeduGWa1IRyrI2FDRUjALhN4FckVRsMVwf.', None)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)

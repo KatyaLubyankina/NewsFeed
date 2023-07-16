@@ -1,10 +1,20 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from loguru import logger
 
 from src.auth import authentication
 from src.db import models
 from src.db.database import engine
+from src.logging import logger_wraps
 from src.routers import comment, post, user
+
+logger.remove()
+logger.add(
+    "log.log",
+    colorize=False,
+    format="<green>{time:HH:mm:ss}</green> | {level} | <level>{message}</level>",
+    level="DEBUG",
+)
 
 app = FastAPI()
 
@@ -15,6 +25,7 @@ app.include_router(comment.router)
 
 
 @app.get("/")
+@logger_wraps()
 def root():
     return "Welcome to News Feed!"
 
