@@ -5,17 +5,20 @@ This project allows users to view and create news posts with pictures and commen
 See detailed [OpenAPI documentation of NewsFeed project](https://katyalubyankina.github.io/NewsFeed/) without starting the project.
 
 **Features**:
-- [FastAPI](https://fastapi.tiangolo.com/) (Python 3.10) - JWT authentication using [OAuth2](https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/)
+- [FastAPI](https://fastapi.tiangolo.com/) (Python 3.10.10) - framework for API
+- [OAuth2](https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/) - for authentication with JSON Web Token
 - [SQLite](https://www.sqlite.org/index.html) - for the database
 - [SqlAlchemy](https://www.sqlalchemy.org/) - for ORM
+- [MinIO](https://min.io/) - for S3 storage
 - [Pytest](https://docs.pytest.org/en/latest/) - for tests (Reusable Pytest fixtures and new test database for each test)
-- [Docker Compose](https://docs.docker.com/compose/) - for running application
+- [Docker Compose](https://docs.docker.com/compose/) - for running application (containers for application and MinIO storage with volumes)
 - [Uvicorn](https://www.uvicorn.org/) - for ASGI web server
 - CI/CD pipeline: Github action for pytest and docker image build before pull request in master
 - [Poetry](https://python-poetry.org/) - for packaging and dependency management
-- [Python-dotenv](https://github.com/theskumar/python-dotenv) - for reading configuration variables
+- [Fastapi-pagination](https://github.com/uriyyo/fastapi-pagination) - for pagination in endpoint for getting all posts
+- [Python-dotenv](https://github.com/theskumar/python-dotenv) - for reading configuration variables and secret data
 - [Loguru](https://loguru.readthedocs.io/en/stable/api/logger.html) - for logging errors
-and secret data
+- [Pre-commit](https://pre-commit.com/) - black, flake8 and isort formate code before each commit
 # Getting started
 Run these commands to start project
 ```Python
@@ -29,10 +32,6 @@ This project comes with Pytest and a few Pytest fixtures for new user, login, po
 To run all tests use:
 ```Shell
 pytest
-```
-To calculate **Code Coverage** run:
-```Shell
-pytest --cov
 ```
 
 # Examples:
@@ -65,7 +64,7 @@ Authentication is required for this endpoint.
 Request:
 ```
 curl -X 'POST' \
-  'http://localhost:8000/post' \
+  'http://localhost/post' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -92,7 +91,7 @@ Authentication is required for this endpoint.
 Request:
 ```
 curl -X 'POST' \
-  'http://localhost:8000/comment' \
+  'http://localhost/comment' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJleHAiOjE2ODgwMjY2NDF9.0BlUSHzdzR4lOdghXxuwxijc1E1aZQYJ_lOOUFWbNwY' \
   -H 'Content-Type: application/json' \
@@ -116,7 +115,7 @@ Response:
 Request:
 ```
 curl -X 'GET' \
-  'http://localhost:8000/post/all' \
+  'http://localhost/post/all' \
   -H 'accept: application/json'
 ```
 Response:
@@ -144,7 +143,7 @@ Response:
 Request:
 ```
 curl -X 'GET' \
-  'http://localhost:8000/comment/all/1' \
+  'http://localhost/comment/all/1' \
   -H 'accept: application/json'
 ```
 Response:
@@ -164,7 +163,7 @@ Authenticated user can delete post only if user created this post.
 Request:
 ```
 curl -X 'GET' \
-  'http://localhost:8000/post/delete/1' \
+  'http://localhost/post/delete/1' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJleHAiOjE2ODgwMjY2NDF9.0BlUSHzdzR4lOdghXxuwxijc1E1aZQYJ_lOOUFWbNwY'
 ```
