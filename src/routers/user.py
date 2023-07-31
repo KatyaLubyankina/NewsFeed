@@ -2,12 +2,10 @@ from fastapi import APIRouter, Depends
 from loguru import logger
 from sqlalchemy.orm.session import Session
 
-from src.auth.oauth2 import get_current_user
 from src.db import db_user
 from src.db.database import get_db
 from src.db.models import DbUser
-from src.logging import logger_wraps
-from src.routers.schemas import UserAuth, UserBase, UserDisplay
+from src.routers.schemas import UserBase, UserDisplay
 
 router = APIRouter(prefix="/user", tags=["user"])
 
@@ -27,25 +25,3 @@ def create_user(request: UserBase, db: Session = Depends(get_db)) -> DbUser:
     - json with username and email
     """
     return db_user.create_user(db, request)
-
-
-@router.post("/avatar/{id}", summary="Update user avatar")
-@logger_wraps()
-def update_avatar(
-    avatar_url: str,
-    db: Session = Depends(get_db),
-    current_user: UserAuth = Depends(get_current_user),
-) -> str:
-    """Updates user avatar
-
-    Calls src.db_user.create_user function
-
-    Args:
-    - avatar_url: url of uploaded image by src.post.upload_file function
-    - db (Session): database session
-    - current_user (UserAuth): info about current user from database
-
-    Returns:
-    - 'ok'
-    """
-    return db_user.update_avatar(db, current_user.id, avatar_url)

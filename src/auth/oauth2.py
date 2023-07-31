@@ -14,7 +14,6 @@ from src.db.models import DbUser
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 SECRET_KEY = config.get_settings().SECRET_KEY.get_secret_value()
-# SECRET_KEY = '2f98e7bb35876335c26954be812d58f95448c347ea7734515173baefa0f2ab51'
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 

@@ -51,17 +51,3 @@ def get_user_by_username(db: Session, username: str) -> DbUser:
             detail=f"User with username {username} not found",
         )
     return user
-
-
-def update_avatar(db: Session, user_id: int, avatar_url: str):
-    """
-    Function updates avatar for authorized user.
-    Avatar must be previously uploaded via GET /post/image
-
-    """
-    values_dict = {"avatar_url": avatar_url}
-    user = db.query(DbUser).filter(DbUser.id == user_id).first()
-    for key, value in values_dict.items():
-        setattr(user, key, value)
-    db.commit()
-    return "ok"
