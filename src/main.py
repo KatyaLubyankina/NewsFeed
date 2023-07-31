@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi_pagination import add_pagination
 from loguru import logger
 
 from src.auth import authentication
@@ -22,6 +23,8 @@ app.include_router(user.router)
 app.include_router(post.router)
 app.include_router(authentication.router)
 app.include_router(comment.router)
+
+add_pagination(app)
 
 
 @app.get("/")

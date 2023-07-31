@@ -5,12 +5,14 @@
 # Environment
 env/
 
+# Logging
+log.log
+
 # Test coverage
 .coverage
 
 # Minio
 minio/
-
 
 # Databases
 **/news_api.db

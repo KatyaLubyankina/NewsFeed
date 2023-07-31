@@ -25,6 +25,7 @@ python-dotenv = "^1.0.0"
 pyproject-flake8 = "^6.0.0.post1"
 minio = "^7.1.15"
 loguru = "^0.7.0"
+fastapi-pagination = "^0.12.6"
 
 
 [build-system]
