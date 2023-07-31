@@ -3,6 +3,8 @@ import string
 from typing import Annotated, List
 
 from fastapi import APIRouter, Depends, File, UploadFile
+from fastapi_pagination import Page
+from fastapi_pagination.ext.sqlalchemy import paginate
 from sqlalchemy.orm import Session
 
 from config import Settings, get_settings
@@ -35,7 +37,7 @@ def create_post(request: PostBase, db: Session = Depends(get_db)) -> DbPost:
     return db_post.create_post(db, request)
 
 
-@router.get("/all", response_model=List[PostDisplay], summary="Retrive all posts")
+@router.get("/all", response_model=Page[PostDisplay], summary="Retrive all posts")
 @logger_wraps()
 def posts(db: Session = Depends(get_db)) -> List[DbPost]:
     """Retrives all posts
@@ -48,7 +50,22 @@ def posts(db: Session = Depends(get_db)) -> List[DbPost]:
     Returns:
     - List of posts in PostDisplay format
     """
-    return db_post.get_all_posts(db)
+    return paginate(db, db_post.get_all_posts(db))
+
+
+@router.get("/all/slow", response_model=List[PostDisplay], summary="Retrive all posts")
+def slow_posts(db: Session = Depends(get_db)) -> List[DbPost]:
+    """Retrives all posts
+
+    Calls src.db_post.get_all_posts function
+
+    Args:
+    - db (Session): database session
+
+    Returns:
+    - List of posts in PostDisplay format
+    """
+    return db.query(DbPost).all()
 
 
 @router.post("/image", summary="Upload an image")
