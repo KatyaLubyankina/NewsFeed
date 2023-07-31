@@ -2,6 +2,7 @@ import datetime
 from typing import List
 
 from fastapi import HTTPException, status
+from sqlalchemy import desc, select
 from sqlalchemy.orm.session import Session
 
 from src.db.models import DbPost
@@ -42,7 +43,7 @@ def get_all_posts(db: Session) -> List[DbPost]:
     Returns:
     - Information about all posts from DbPost table
     """
-    return db.query(DbPost).all()
+    return select(DbPost).order_by(desc(DbPost.timestamp))
 
 
 def delete_post(db: Session, id: int, user_id: int) -> str:
