@@ -1,6 +1,3 @@
-# import os
-
-# import pytest
 from fastapi.testclient import TestClient
 
 from src.main import app
@@ -12,22 +9,6 @@ def test_login(login_user):
     assert login_user.status_code == 200
     access_token = login_user.json().get("access_token")
     assert access_token
-
-
-# def test_upload_image_success(login_user):
-#     access_token = login_user.json().get("access_token")
-#     file_path = "tests/test.png"
-#     if os.path.isfile(file_path):
-#         file = {"image": open(file_path, "rb")}
-#         response = client.post(
-#             "/post/image",
-#             files=file,
-#             headers={"Authorization": "bearer " + access_token},
-#         )
-#         assert response.status_code == 200
-#         assert response.json().get("filename")
-#     else:
-#         pytest.fail("File does not exists.")
 
 
 def test_get_all_posts(test_db):

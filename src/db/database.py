@@ -4,7 +4,6 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 import config
 
 SQLALCHEMY_DATABASE_URL = config.get_settings().SQLALCHEMY_DATABASE_URL
-# SQLALCHEMY_DATABASE_URL: str = 'sqlite:///sqlite/news_api.db'
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}

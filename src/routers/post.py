@@ -37,10 +37,10 @@ def create_post(request: PostBase, db: Session = Depends(get_db)) -> DbPost:
     return db_post.create_post(db, request)
 
 
-@router.get("/all", response_model=Page[PostDisplay], summary="Retrive all posts")
+@router.get("/all", response_model=Page[PostDisplay], summary="Returns all posts")
 @logger_wraps()
 def posts(db: Session = Depends(get_db)) -> List[DbPost]:
-    """Retrives all posts
+    """Returns all posts
 
     Calls src.db_post.get_all_posts function
 
@@ -53,21 +53,6 @@ def posts(db: Session = Depends(get_db)) -> List[DbPost]:
     return paginate(db, db_post.get_all_posts(db))
 
 
-@router.get("/all/slow", response_model=List[PostDisplay], summary="Retrive all posts")
-def slow_posts(db: Session = Depends(get_db)) -> List[DbPost]:
-    """Retrives all posts
-
-    Calls src.db_post.get_all_posts function
-
-    Args:
-    - db (Session): database session
-
-    Returns:
-    - List of posts in PostDisplay format
-    """
-    return db.query(DbPost).all()
-
-
 @router.post("/image", summary="Upload an image")
 @logger_wraps()
 def upload_file(
@@ -77,7 +62,7 @@ def upload_file(
 ) -> dict:
     """Uploads an image
 
-    This app performs uploading file for future posts in minIO S3 storage.
+    This app performs uploading image for future posts in minIO S3 storage.
     Authentication is required.
     Random string of 6 characters is added to filename to prevent overwriting.
 

@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, Optional
+from typing import List
 
 from pydantic import BaseModel
 
@@ -8,7 +8,6 @@ class UserBase(BaseModel):
     username: str
     email: str
     password: str
-    avatar_url: Optional[str] = None
 
 
 class UserDisplay(BaseModel):
