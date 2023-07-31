@@ -25,7 +25,9 @@ Run these commands to start project
 docker-compose build
 docker-compose up
 ```
-The project documentation will be at http://localhost/docs.
+The API documentation will be at http://localhost/docs.
+API endpoints will be available at http://localhost/.
+MinIO object storage - http://localhost:9000 - use minioadmin as login and password.
 
 # Testing
 This project comes with Pytest and a few Pytest fixtures for new user, login, post and comment. Tests are located in **/tests** directory and the fixtures are available in **tests/conftest.py**.
