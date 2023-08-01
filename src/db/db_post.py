@@ -63,7 +63,7 @@ def delete_post(db: Session, id: int, user_id: int) -> str:
     Returns:
         "ok"
     """
-    post = db.query(DbPost).filter(DbPost.id == id).first()
+    post = db.query(DbPost).where(DbPost.id == id).first()
 
     if not post:
         raise HTTPException(

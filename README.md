@@ -1,6 +1,4 @@
 # NewsFeed with FastApi
-![](coverage.svg)
-
 This project allows users to view and create news posts with pictures and comments.
 See detailed [OpenAPI documentation of NewsFeed project](https://katyalubyankina.github.io/NewsFeed/) without starting the project.
 
@@ -20,18 +18,28 @@ See detailed [OpenAPI documentation of NewsFeed project](https://katyalubyankina
 - [Loguru](https://loguru.readthedocs.io/en/stable/api/logger.html) - for logging errors
 - [Pre-commit](https://pre-commit.com/) - black, flake8 and isort formate code before each commit
 # Getting started
-Run these commands to start project
+Run these commands to start project.
 ```Python
 docker-compose build
 docker-compose up
 ```
-The project documentation will be at http://localhost/docs.
+You can change secret data (secret keys for encryption and s3 storage) in src/secrets folder.
+The API documentation will be at http://localhost/docs.
+API endpoints will be available at http://localhost/.
+MinIO object storage - http://localhost:9000 - use minioadmin as login and password. You can change these values with 'MINIO_ROOT_USER' and 'MINIO_ROOT_PASSWORD' environment variables (use .env_vars file).
+
 
 # Testing
+![](coverage.svg)
+
 This project comes with Pytest and a few Pytest fixtures for new user, login, post and comment. Tests are located in **/tests** directory and the fixtures are available in **tests/conftest.py**.
 To run all tests use:
 ```Shell
 pytest
+```
+To check coverage use:
+```Shell
+pytest --cov
 ```
 
 # Examples:
