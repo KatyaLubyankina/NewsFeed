@@ -5,11 +5,21 @@ services:
   build: .
   ports:
     - "80:80"
-  volumes:
-    - ./sqlite:/sqlite
   depends_on:
     - minio
+    - db
 
+ db:
+  image: postgres
+  container_name: postgres
+  restart: always
+  environment:
+  - POSTGRES_USER=postgres
+  - POSTGRES_PASSWORD=postgres
+  ports:
+    - "5432:5432"
+  volumes:
+    - postgres:/postgresql
 
  minio:
   image: quay.io/minio/minio:latest
@@ -18,3 +28,11 @@ services:
   ports:
     - ":9000:9000"
     - ":9090:9090"
+  volumes:
+    - minio:/minio
+
+volumes:
+  postgres:
+    driver: local
+  minio:
+    driver: local
