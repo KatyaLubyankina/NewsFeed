@@ -10,7 +10,7 @@ from src.routers.schemas import PostBase
 
 
 def create_post(db: Session, request: PostBase) -> DbPost:
-    """Creates new post
+    """Creates new post.
 
     Information about post adds to DbPost table and
     database generates id and timestamp for each post.
@@ -35,7 +35,7 @@ def create_post(db: Session, request: PostBase) -> DbPost:
 
 
 def get_all_posts(db: Session) -> List[DbPost]:
-    """Gets all posts
+    """Gets all posts.
 
     Args:
     - db (Session): database session
@@ -43,11 +43,11 @@ def get_all_posts(db: Session) -> List[DbPost]:
     Returns:
     - Information about all posts from DbPost table
     """
-    return select(DbPost).order_by(desc(DbPost.timestamp))
+    return db.query(DbPost).all().order_by(desc(DbPost.timestamp))
 
 
 def delete_post(db: Session, id: int, user_id: int) -> str:
-    """Delete post
+    """Deletes post.
 
     Authenticated user can delete post if user created it.
 

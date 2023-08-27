@@ -1,32 +1,33 @@
 [tool.poetry]
-name = "news-feed-api"
+name = "newsfeed"
 version = "0.1.0"
 description = ""
-authors = ["katyalubyankina <katylubyankina@gmail.com>"]
+authors = ["Ekaterina Lubyankina <katylubyankina@gmail.com>"]
 readme = "README.md"
-packages = [{include = "news_feed_api"}]
 
 [tool.poetry.dependencies]
-python = "3.10.10"
-fastapi = "^0.99.1"
-uvicorn = "^0.22.0"
-sqlalchemy = "^2.0.18"
+python = "^3.10"
+fastapi = "^0.101.1"
+uvicorn = "^0.23.2"
+sqlalchemy = "^2.0.20"
 passlib = "^1.7.4"
 bcrypt = "^4.0.1"
 python-multipart = "^0.0.6"
-aiofiles = "^23.1.0"
+aiofiles = "^23.2.1"
 python-jose = "^3.3.0"
 pytest = "^7.4.0"
 httpx = "^0.24.1"
 pre-commit = "^3.3.3"
-black = "^23.3.0"
+black = "^23.7.0"
 isort = "^5.12.0"
 python-dotenv = "^1.0.0"
 pyproject-flake8 = "^6.0.0.post1"
-minio = "^7.1.15"
+minio = "^7.1.16"
 loguru = "^0.7.0"
-fastapi-pagination = "^0.12.6"
 pytest-cov = "^4.1.0"
+fastapi-pagination = "^0.12.9"
+psycopg2-binary = "^2.9.7"
+pydantic-settings = "^2.0.3"
 
 
 [build-system]

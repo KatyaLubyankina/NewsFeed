@@ -15,7 +15,7 @@ class UserDisplay(BaseModel):
     email: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class PostBase(BaseModel):
@@ -29,7 +29,7 @@ class User(BaseModel):
     username: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 # for PostDisplay
@@ -39,7 +39,7 @@ class Comment(BaseModel):
     timestamp: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class PostDisplay(BaseModel):
@@ -51,7 +51,7 @@ class PostDisplay(BaseModel):
     comments: List[Comment]
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class UserAuth(BaseModel):
