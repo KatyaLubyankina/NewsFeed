@@ -16,7 +16,7 @@ router = APIRouter(tags=["authentication"])
 def login(
     request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ) -> dict:
-    """Endpoint for login
+    """Endpoint for login.
 
     Validates credentials and returns
     access_token, token_type, user_id and username if credentials are valid.

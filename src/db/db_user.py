@@ -7,10 +7,10 @@ from src.routers.schemas import UserBase
 
 
 def create_user(db: Session, request: UserBase) -> DbUser:
-    """Creates new user
+    """Creates new user.
 
     This function creates a new user in database using requested info.
-    Passoword is hashed before adding to the DB.
+    Password is hashed before adding to the DB.
 
     Args:
     - db (Session): database session
@@ -32,7 +32,7 @@ def create_user(db: Session, request: UserBase) -> DbUser:
 
 
 def get_user_by_username(db: Session, username: str) -> DbUser:
-    """Returns DbUser with provided username
+    """Returns DbUser with provided username.
 
     Args:
     - db (Session): database session
