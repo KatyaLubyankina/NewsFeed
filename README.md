@@ -3,9 +3,11 @@ This project allows users to view and create news posts with pictures and commen
 See detailed [OpenAPI documentation of NewsFeed project](https://katyalubyankina.github.io/NewsFeed/) without starting the project.
 
 **Features**:
-- [FastAPI](https://fastapi.tiangolo.com/) (Python 3.10.10) - framework for API
+- [FastAPI](https://fastapi.tiangolo.com/) (Python 3.10) - framework for API
 - [OAuth2](https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/) - for authentication with JSON Web Token
-- [SQLite](https://www.sqlite.org/index.html) - for the database
+- [PostgreSQL](https://www.postgresql.org/) - database with indexes for post and user id to improve the speed of operations
+- [pgAdmin](https://www.pgadmin.org/) for management
+- [SQLite](https://www.sqlite.org/index.html) - database for tests
 - [SqlAlchemy](https://www.sqlalchemy.org/) - for ORM
 - [MinIO](https://min.io/) - for S3 storage
 - [Pytest](https://docs.pytest.org/en/latest/) - for tests (Reusable Pytest fixtures and new test database for each test)
@@ -18,10 +20,17 @@ See detailed [OpenAPI documentation of NewsFeed project](https://katyalubyankina
 - [Loguru](https://loguru.readthedocs.io/en/stable/api/logger.html) - for logging errors
 - [Pre-commit](https://pre-commit.com/) - black, flake8 and isort formate code before each commit
 # Getting started
-Run these commands to start project.
-```Python
-docker-compose build
-docker-compose up
+Clone github repository
+```Shell
+git clone https://github.com/KatyaLubyankina/NewsFeed.git
+```
+Change directory to NewsFeed
+```Shell
+cd NewsFeed
+```
+Start Docker Desktop and run this command to start project in docker containers
+```Shell
+docker compose up --build
 ```
 You can change secret data (secret keys for encryption and s3 storage) in src/secrets folder.
 The API documentation will be at http://localhost/docs.
