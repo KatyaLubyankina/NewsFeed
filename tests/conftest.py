@@ -7,7 +7,7 @@ from sqlalchemy.pool import StaticPool
 from src.db.database import Base, get_db
 from src.main import app
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///sqlite/test_api.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///test_api.db"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,

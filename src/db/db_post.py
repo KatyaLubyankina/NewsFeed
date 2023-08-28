@@ -43,7 +43,8 @@ def get_all_posts(db: Session) -> List[DbPost]:
     Returns:
     - Information about all posts from DbPost table
     """
-    return db.query(DbPost).all().order_by(desc(DbPost.timestamp))
+    posts = db.query(DbPost).order_by(DbPost.timestamp.desc())
+    return posts
 
 
 def delete_post(db: Session, id: int, user_id: int) -> str:

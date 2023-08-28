@@ -43,4 +43,5 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-models.Base.metadata.create_all(engine)
+if __name__ == "__main__":
+    models.Base.metadata.create_all(bind=engine)
