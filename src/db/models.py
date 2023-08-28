@@ -18,7 +18,7 @@ class DbUser(Base):
 
 
 class DbPost(Base):
-    """Table for posts"""
+    """Table for posts."""
 
     __tablename__ = "post"
     id = Column(Integer, primary_key=True, index=True)
@@ -31,7 +31,7 @@ class DbPost(Base):
 
 
 class DbComment(Base):
-    """Table for comments"""
+    """Table for comments."""
 
     __tablename__ = "comment"
     id = Column(Integer, primary_key=True, index=True)

@@ -22,7 +22,7 @@ router = APIRouter(prefix="/post", tags=["post"])
 @router.post("", response_model=PostDisplay)
 @logger_wraps()
 def create_post(request: PostBase, db: Session = Depends(get_db)) -> DbPost:
-    """Creates new post
+    """Creates new post.
 
     Call src.db_post.create_post function
 
@@ -40,7 +40,7 @@ def create_post(request: PostBase, db: Session = Depends(get_db)) -> DbPost:
 @router.get("/all", response_model=Page[PostDisplay], summary="Returns all posts")
 @logger_wraps()
 def posts(db: Session = Depends(get_db)) -> List[DbPost]:
-    """Returns all posts
+    """Returns all posts.
 
     Calls src.db_post.get_all_posts function
 
@@ -60,7 +60,7 @@ def upload_file(
     image: UploadFile = File(...),
     current_user: UserAuth = Depends(get_current_user),
 ) -> dict:
-    """Uploads an image
+    """Uploads an image.
 
     This app performs uploading image for future posts in minIO S3 storage.
     Authentication is required.
@@ -101,7 +101,7 @@ def delete(
     db: Session = Depends(get_db),
     current_user: UserAuth = Depends(get_current_user),
 ) -> str:
-    """Delete post
+    """Deletes post.
 
     Call src.db_post.delete function
 

@@ -7,7 +7,7 @@ class Hash():
     """This class provides password hashing and verifying.
     """
     def bcrypt(password: str) -> str:
-        """Returns hashed password
+        """Returns hashed password.
 
         Args:
         - password (str): plain password
@@ -18,7 +18,7 @@ class Hash():
         return pwd_cxt.hash(password)
 
     def verify(hashed_password: str, plain_password: str) -> bool:
-        """Verifies password
+        """Verifies password.
 
         Args:
             hashed_password (str)

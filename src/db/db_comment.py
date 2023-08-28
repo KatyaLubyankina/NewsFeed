@@ -8,7 +8,7 @@ from src.routers.schemas import CommentBase
 
 
 def create_comment(db: Session, request: CommentBase) -> DbComment:
-    """Creates new comment for post
+    """Creates new comment for post.
 
     Args:
     - db (Session): database session
@@ -31,7 +31,7 @@ def create_comment(db: Session, request: CommentBase) -> DbComment:
 
 
 def get_all_comments(db: Session, post_id: int) -> List[DbComment]:
-    """Gets all comments for post
+    """Gets all comments for post.
 
     Args:
         db (Session): database session

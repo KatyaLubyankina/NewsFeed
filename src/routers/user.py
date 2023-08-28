@@ -13,9 +13,9 @@ router = APIRouter(prefix="/user", tags=["user"])
 @router.post("", response_model=UserDisplay, summary="Create a user")
 @logger.catch()
 def create_user(request: UserBase, db: Session = Depends(get_db)) -> DbUser:
-    """Creates new user
+    """Creates new user.
 
-    Calls src.db_user.create_user function
+    Calls src.db_user.create_user function.
 
     Args:
     - request (UserBase): username, email and password required, avatar_url is optional
